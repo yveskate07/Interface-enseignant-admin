@@ -1,0 +1,350 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import join os.path.join
+
+<CustomLabel>:
+    color: 'black'
+
+<DeleteBtn>:
+    text: "Supprimer"
+    md_bg_color: "#861919"
+    pos_hint:{'center_x':.5,'center_y':.5}
+
+
+
+<PersonneLine>:
+    cols: 6
+    size_hint: 1, None
+    height: dp(65)
+    canvas.before:
+        Color:
+            rgba: 1,1,1,.7
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<StudentLine>:
+    cols: 6
+    size_hint: 1, None
+    height: dp(65)
+    canvas.before:
+        Color:
+            rgba: 1,1,1,.7
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+
+<AddingStudentFrame>:
+
+    no_carte_etudiant: no_carte_etudiant
+    nom: nom
+    prenoms: prenoms
+    email: email
+    classe: classe
+
+    Label:
+        halign: "center"
+        text: "Num carte etudiant"
+        pos_hint: {'center_y':.75, 'center_x': 1/6}
+
+    Label:
+        halign: "center"
+        text: "Nom"
+        pos_hint: {'center_y':.75, 'center_x':2/6}
+
+    Label:
+        halign: "center"
+        text: "Prenoms"
+        pos_hint: {'center_y':.75, 'center_x':3/6}
+
+    Label:
+        halign: "center"
+        text: "Email"
+        pos_hint: {'center_y':.75, 'center_x':4/6}
+
+    Label:
+        halign: "center"
+        text: "Classe"
+        pos_hint: {'center_y':.75, 'center_x':5/6}
+
+    TextInput:
+        id: no_carte_etudiant
+        halign: "center"
+        pos_hint: {'center_y':.65, 'center_x':1/6}
+        size_hint: None, None
+        size: dp(155), dp(45)
+
+    TextInput:
+        id: nom
+        halign: "center"
+        pos_hint: {'center_y':.65, 'center_x':2/6}
+        size_hint: None, None
+        size: dp(155), dp(45)
+
+    TextInput:
+        id: prenoms
+        halign: "center"
+        pos_hint: {'center_y':.65, 'center_x':3/6}
+        size_hint: None, None
+        size: dp(155), dp(45)
+
+    TextInput:
+        id: email
+        halign: "center"
+        pos_hint: {'center_y':.65, 'center_x':4/6}
+        size_hint: None, None
+        size: dp(155), dp(45)
+
+    TextInput:
+        id: classe
+        halign: "center"
+        size_hint: None, None
+        size: dp(155), dp(45)
+        pos_hint: {'center_y':.65, 'center_x':5/6}
+
+    MDRaisedButton:
+        text: "Enregistrer"
+        size_hint: None, None
+        size: dp(105), dp(45)
+        pos_hint: {'center_x':.5, 'center_y':.45}
+
+
+<AddingPersonneFrame>:
+    nom_personne: nom_personne
+    prenoms_personne: prenoms_personne
+    email_personne: email_personne
+    matricule_personne: matricule_personne
+    statut_personne: statut_personne
+
+
+    Label:
+        text: "Nom_personne"
+        pos_hint: {'center_y':.75, 'center_x': 1/6}
+
+    Label:
+        text: "Prenoms_personne"
+        pos_hint: {'center_y':.75, 'center_x':2/6}
+
+    Label:
+        text: "Email_personne"
+        pos_hint: {'center_y':.75, 'center_x':3/6}
+
+    Label:
+        text: "Matricule_personne"
+        pos_hint: {'center_y':.75, 'center_x':4/6}
+
+    Label:
+        text: "Statut_personne"
+        pos_hint: {'center_y':.75, 'center_x':5/6}
+
+    TextInput:
+        id: nom_personne
+        halign: "center"
+        size_hint: None, None
+        size: dp(155), dp(45)
+        pos_hint: {'center_y':.65, 'center_x':1/6}
+
+    TextInput:
+        id: prenoms_personne
+        halign: "center"
+        size_hint: None, None
+        size: dp(155), dp(45)
+        pos_hint: {'center_y':.65, 'center_x':2/6}
+
+    TextInput:
+        id: email_personne
+        halign: "center"
+        size_hint: None, None
+        size: dp(155), dp(45)
+        pos_hint: {'center_y':.65, 'center_x':3/6}
+
+    TextInput:
+        id: matricule_personne
+        halign: "center"
+        size_hint: None, None
+        size: dp(155), dp(45)
+        pos_hint: {'center_y':.65, 'center_x':4/6}
+
+    TextInput:
+        id: statut_personne
+        halign: "center"
+        size_hint: None, None
+        size: dp(155), dp(45)
+        hint_text: "admin ou enseignant"
+        pos_hint: {'center_y':.65, 'center_x':5/6}
+
+    MDRaisedButton:
+        text: "Enregistrer"
+        size_hint: None, None
+        size: dp(105), dp(45)
+        hint: "admin ou enseignant"
+        pos_hint: {'center_x':.5, 'center_y':.45}
+
+
+<CustomButtonPlusStudent@MDFillRoundFlatButton>:
+    size_hint: None, None
+    size: dp(95), dp(55)
+    md_bg_color: "#126087"
+    text: 'Ajouter etudiant'
+
+<CustomButtonPlusTeacher@MDFillRoundFlatButton>:
+    size_hint: None, None
+    size: dp(95), dp(55)
+    md_bg_color: "#126087"
+    text: 'Ajouter personne'
+
+
+
+<CustomButtonMinusStudent@MDFillRoundFlatButton>:
+    size_hint: None, None
+    size: dp(95), dp(55)
+    md_bg_color: "#126087"
+    text: 'Supprimer etudiant'
+
+
+
+<CustomButtonMinusTeacher@MDFillRoundFlatButton>:
+    size_hint: None, None
+    size: dp(95), dp(55)
+    md_bg_color: "#126087"
+    text: 'Supprimer personne'
+
+
+<AdminScreen>:
+    nom_admin : nom_admin
+    prenoms_admin : prenoms_admin
+    left_layout: left_layout
+    right_layout: right_layout
+    lower_frame: lower_frame
+    upper_frame: upper_frame
+    email_admin : email_admin
+    add_student: add_student
+    add_teacher: add_teacher
+    remove_student: remove_student
+    remove_teacher: remove_teacher
+    #scroll_view: scroll_view
+
+    md_bg_color: get_color_from_hex("#79a4b9")
+    BoxLayout:
+        BoxLayout:
+            orientation: "vertical"
+            id:left_layout # -------- ce frame contient l'espace personnel de l'enseignant --------
+            size_hint_x: .2
+            BoxLayout:
+                id: picture_frame # -------- ce frame contient la photo de profil --------
+                size_hint_y:.25
+                canvas.before:
+                    Color:
+                        rgba: 30/255, 30/255, 30/255, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                ScaleImage:
+                    id: avatar # -------- cadre pour la photo de profil --------
+                    scale: 1
+                    source: join('data','images','3135715.png')
+                    size_hint: 1, 1
+                    #size: dp(240), dp(82)
+                    pos_hint: {"center_x": .5}
+                    y: root.height - self.height - dp(56)
+
+            RelativeLayout:
+                id: info_frame # -------- ce frame contient les infos du prof --------
+                size_hint_y:.75
+                canvas.before:
+                    Color:
+                        rgba: 90/255, 106/255, 117/255, .7
+                    Rectangle:
+                        pos: (0,0)
+                        size: self.size
+
+                Label:
+                    id: nom_admin
+                    text: ""
+                    size_hint: .7, .10
+                    text_size: self.size
+                    font_size: self.size[0]*6.8/100
+                    halign:"left"
+                    valign:"center"
+                    pos_hint:{"top":1,"left":.7}
+
+                Label:
+                    id: prenoms_admin
+                    text: ""
+                    size_hint: .7, .10
+                    text_size: self.size
+                    font_size: self.size[0]*6.8/100
+                    halign:"left"
+                    valign:"center"
+                    pos_hint:{"top":.89,"left":.7}
+
+                Label:
+                    id: email_admin
+                    text: ""
+                    size_hint: .7, .10
+                    text_size: self.size
+                    font_size: self.size[0]*6.8/100
+                    halign:"left"
+                    valign:"center"
+                    pos_hint:{"bottom":1,"left":.7}
+
+
+        BoxLayout:
+            id:right_layout
+            size_hint_x: .8
+            orientation: "vertical"
+            RelativeLayout:
+                id: upper_frame
+                size_hint: 1, .17
+                canvas.before:
+                    Color:
+                        rgba: 90/255, 106/255, 117/255, .4
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                BoxLayout:
+                    size_hint: None, None
+                    size: dp(240), dp(82)
+                    pos_hint: {"right": 1, "top":1}
+
+                    ScaleImage:
+                        id: avatar # -------- logo de l'ecole --------
+                        scale: 1
+                        source: join("data","images","logo_DIT3.png")
+
+                GridLayout:
+                    cols: 4
+                    orientation: "bt-lr"
+                    spacing: dp(20)
+                    CustomButtonPlusStudent:
+                        id: add_student
+                        on_release: root.display_add_students_fields(self)
+
+                    CustomButtonPlusTeacher:
+                        id: add_teacher
+                        on_release: root.display_add_personnes_fields(self)
+
+                    CustomButtonMinusStudent:
+                        id: remove_student
+                        on_release: root.display_students(self)
+
+                    CustomButtonMinusTeacher:
+                        id: remove_teacher
+                        on_release: root.display_personnes(self)
+
+
+            ScrollView:
+                id: scroll_view
+                size_hint: 1, .83
+                do_scroll_x: False
+
+                GridLayout:
+                    id: lower_frame
+                    cols: 1
+                    size_hint: 1, .8
+                    height: self.minimum_height
+                    padding: dp(80)
+                    spacing: dp(30)

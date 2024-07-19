@@ -1,0 +1,321 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import join os.path.join
+
+
+<MessagePopup>:
+    auto_dismiss: False
+    size_hint: 0.45, 0.2
+    pos_hint:{'center_x':.5,'center_y':.5}
+    title: ""
+    RelativeLayout:
+        MDRaisedButton:
+            style: "elevated"
+            text: "Fermer"
+            font_size: dp(28)
+            size_hint: None, None
+            size: dp(250), dp(25)
+            pos_hint:{'center_x':.5,'center_y':.25}
+            on_release: root.dismiss()
+
+<CheckBoxContainer>:
+    cols: 10
+    spacing: dp(10)
+
+<StudentsCkeckoutBody>:
+    size_hint: 1, None
+    height: self.minimum_height
+    cols: 1
+    spacing: dp(10)
+
+<DropDownItem>:
+    size_hint: None, None
+    text_size: cm(8), cm(1.5)
+    size: self.texture_size
+    valign: "middle"
+    halign: "center"
+    color: "black"
+    background_normal:""
+    on_release: self.parent.parent.select(self.text)
+    canvas.before:
+        Color:
+            rgba: 147/255, 159/255, 166/255, 1
+
+
+<SeanceFrame>:
+    size_hint: 1, .83 # -------- ce frame permet d'afficher les eleves et de les marquer present/absent aux seances ---------
+    students_checkouts_header: students_checkouts_header
+    students_checkouts_body: students_checkouts_body
+    orientation: "vertical"
+    spacing: dp(20)
+    pos_hint:{"center_x":.5,"top":1}
+
+    GridLayout:
+        size_hint:1, None
+        cols: 2
+        height: dp(25)
+        spacing: dp(10)
+
+        Label:
+            text: "Etudiants"
+            color: "black"
+            size_hint_x: .3
+            canvas.before:
+                Color:
+                    rgba: 96/255,125/255,139/255,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        GridLayout:
+            size_hint_x: .7
+            id: students_checkouts_header
+            cols: 10
+            spacing: dp(10)
+
+    ScrollView:
+        do_scroll_x: False
+        scroll_y: 1
+        size_hint: 1, 1
+        bar_color: 1,1,1,1
+        bar_inactive_color: 1,1,1,.5
+        bar_margin: 6
+        bar_width: 8
+        scroll_wheel_distance: 40
+        scroll_type: ['bars', 'content']
+
+        StudentsCkeckoutBody:
+            id: students_checkouts_body
+
+
+<LowerFrame>:
+    seance_frame: seance_frame
+    edit_checkouts_btn: edit_checkouts_btn
+    welcome_label: welcome_label
+    size_hint: 1, .83
+
+    SeanceFrame:
+        id: seance_frame
+
+    RelativeLayout: # -------- ce frame servira à naviguer entre les pages de seance
+        size_hint: 1, .17
+        pos_hint:{"center_x":.5,"top":.17}
+
+        Button
+            id: edit_checkouts_btn
+            text: "Modifier"
+            color:'white'
+            background_normal: ''
+            background_color:"#30789C"
+            background_disabled_normal: "#30789C"
+            pos_hint: {"right":.9,"top":.8}
+            disabled: True
+            size_hint: None, .2
+            width: dp(70)
+            on_press: root.toggle_edit_mode # en appuyant sur ce bouton, on passe on change la valeur de root.mode_edit
+
+
+    Label:
+        id: welcome_label
+        text: "Bienvenu(e)"
+        color: "black"
+        size_hint: 1, 1
+        font_size: dp(125)
+        font_name: join('data','fonts','SourceCodePro-Regular.otf')
+        pos_hint: {"center_x":.5,"top":1}
+        canvas.before:
+            Color:
+                rgba: 121/255,164/255,185/255,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+<StudentNameLabel>:
+    font_name: join('data','fonts','SourceCodePro-BoldIt.otf')
+    height: dp(60)
+    color: "#121C21"
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<CustomCheckBox>:
+    disabled: not app.edit_mode
+    color_inactive:get_color_from_hex('#8A2828')
+    color_active: 138/255, 40/255, 40/255, 1
+    color_disabled: get_color_from_hex('#8A2828')
+    canvas.before:
+        Color:
+            rgba: 1,1,1,.3
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<ScaleImage@FitImage>:
+    radius: [15, ]
+
+    canvas.before:
+        PushMatrix
+        Scale:
+            x: root.scale
+            y: root.scale
+            z: root.scale
+            origin: self.center
+        Color:
+            rgba: 0, 0, 0, 1
+        Line:
+            width: 1.2
+            rounded_rectangle:
+                self.x, self.y, self.width, self.height, \
+                15, 15, 15, 15, \
+                self.height
+    canvas.after:
+        PopMatrix
+
+<StudentLineCheckout>:
+    checkbox_container: checkbox_container
+    size_hint: 1, None
+    cols: 2
+    height: dp(60)
+    spacing: dp(10)
+
+    StudentNameLabel:
+        id: name
+        text: root.student_name
+        size_hint_x: .3
+
+    CheckBoxContainer:
+        id: checkbox_container
+        size_hint_x: .7
+
+
+
+
+<SeanceLabel>:
+    color: "black"
+    canvas.before:
+        Color:
+            rgba: 96/255,125/255,139/255,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<CustomDropDown>:
+    spacing: dp(10)
+
+<MainScreen>:
+    dropdownbtn: dropdownbtn
+    nom_enseignant : nom_enseignant
+    prenoms_enseignant : prenoms_enseignant
+    left_layout: left_layout
+    right_layout: right_layout
+    lower_frame: lower_frame
+    upper_frame: upper_frame
+    email : email
+
+    md_bg_color: get_color_from_hex("#79a4b9")
+    BoxLayout:
+        BoxLayout:
+            orientation: "vertical"
+            id:left_layout # -------- ce frame contient l'espace personnel de l'enseignant --------
+            size_hint_x: .2
+            BoxLayout:
+                id: picture_frame # -------- ce frame contient la photo de profil --------
+                size_hint_y:.25
+                canvas.before:
+                    Color:
+                        rgba: 30/255, 30/255, 30/255, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                ScaleImage:
+                    id: avatar # -------- cadre pour la photo de profil --------
+                    scale: 1
+                    source: join('data','images','3135715.png')
+                    size_hint: 1, 1
+                    #size: dp(240), dp(82)
+                    pos_hint: {"center_x": .5}
+                    y: root.height - self.height - dp(56)
+
+            RelativeLayout:
+                id: info_frame # -------- ce frame contient les infos du prof --------
+                size_hint_y:.75
+                canvas.before:
+                    Color:
+                        rgba: 90/255, 106/255, 117/255, .7
+                    Rectangle:
+                        pos: (0,0)
+                        size: self.size
+
+                Label:
+                    id: nom_enseignant
+                    text: ""
+                    size_hint: .7, .10
+                    text_size: self.size
+                    font_size: self.size[0]*6.8/100
+                    halign:"left"
+                    valign:"center"
+                    pos_hint:{"top":1,"left":.7}
+
+                Label:
+                    id: prenoms_enseignant
+                    text: ""
+                    size_hint: .7, .10
+                    text_size: self.size
+                    font_size: self.size[0]*6.8/100
+                    halign:"left"
+                    valign:"center"
+                    pos_hint:{"top":.89,"left":.7}
+
+                Label:
+                    id: email
+                    text: ""
+                    size_hint: .7, .10
+                    text_size: self.size
+                    font_size: self.size[0]*6.8/100
+                    halign:"left"
+                    valign:"center"
+                    pos_hint:{"bottom":1,"left":.7}
+
+
+        BoxLayout:
+            id:right_layout # -------- ce frame affiche les infos relatives aux UE --------
+            size_hint_x: .8
+            orientation: "vertical"
+            RelativeLayout:
+                id: upper_frame # -------- ce frame permet de selectionner les ue ---------
+                size_hint: 1, .17
+                canvas.before:
+                    Color:
+                        rgba: 90/255, 106/255, 117/255, .4
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Button:
+                    id: dropdownbtn
+                    text: "Selectionner une matière"
+                    color:'white'
+                    background_normal: ''
+                    background_color:"#30789C"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint: None, None
+                    text_size: cm(8), cm(1.5)
+                    size: self.texture_size
+                    pos_hint: {"center_x":.5,"center_y":.75}
+
+                ScaleImage:
+                    id: avatar # -------- logo de l'ecole --------
+                    scale: 1
+                    source: join("data","images","logo_DIT3.png")
+                    size_hint: None, None
+                    size: dp(240), dp(82)
+                    pos_hint: {"right": 1, "top":1}
+                    y: root.height - self.height - dp(56)
+
+            LowerFrame:
+                id: lower_frame
